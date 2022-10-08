@@ -29,9 +29,17 @@ jobs:
           service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}' # e.g. - my-service-account@my-project.iam.gserviceaccount.com
 
 
+
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
       - name: Build and Push Container
         run: |-
-          ./mnvw compile jib:build
+          mvn compile jib:build
 
       - name: Deploy to Cloud Run
         id: deploy
