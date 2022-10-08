@@ -72,6 +72,24 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<to>
+						<image>gcr.io/stickers-364900/stickers-trade-be</image>
+						<credHelper>gcr</credHelper>
+					</to>
+					<container>
+						<environment>
+							<POSTGRES_URL>${env.POSTGRES_URL}</POSTGRES_URL>
+							<POSTGRES_PASSWORD>${env.POSTGRES_PASSWORD}</POSTGRES_PASSWORD>
+						</environment>
+						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+					</container>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
