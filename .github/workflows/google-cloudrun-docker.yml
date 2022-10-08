@@ -7,6 +7,8 @@ env:
   GAR_LOCATION: gcr.io # TODO: update Artifact Registry location
   SERVICE: stickers-trade-be # TODO: update Cloud Run service name
   REGION: southamerica-east1 # TODO: update Cloud Run service region
+  POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
 jobs:
   deploy:
