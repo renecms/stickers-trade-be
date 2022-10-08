@@ -78,8 +78,8 @@
 				<version>3.3.0</version>
 				<configuration>
 					<to>
-						<image>gcr.io/stickers-364900/stickers-trade-be</image>
-						<credHelper>gcr</credHelper>
+						<image>gcr.io/stickers-364919/stickers-trade-be</image>
+<!--						<credHelper>gcr</credHelper>-->
 					</to>
 					<container>
 						<environment>
