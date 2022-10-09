@@ -11,8 +11,9 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Entity
+@AllArgsConstructor
 @Builder
+@Entity
 @Table(name = "sticker", schema = "stickers", catalog = "postgres")
 public class Sticker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,10 +1,7 @@
 package com.renecms.stickerstradebe.entity;
 
 import com.renecms.stickerstradebe.dto.TradePointDto;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "trade_point", schema = "stickers")
 public class TradePoint {
