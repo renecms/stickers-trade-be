@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -37,19 +38,19 @@ public class User {
     @JoinTable(name = "user_sticker_wishlist", schema = "stickers",
             joinColumns = @JoinColumn(table = "user", name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(table = "sticker", name = "sticker_id", referencedColumnName = "id"))
-    private List<Sticker> userStickerWishList;
+    private List<Sticker> userStickerWishList = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_sticker_owned", schema = "stickers",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "sticker_id", referencedColumnName = "id"))
-    private List<Sticker> userStickerOwnedList;
+    private List<Sticker> userStickerOwnedList = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_trade_point", schema = "stickers",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "trade_point_id", referencedColumnName = "id"))
-    private List<TradePoint> userTradePointList;
+    private List<TradePoint> userTradePointList = new ArrayList<>();
 
     public UserDto toDto() {
         return UserDto.builder()

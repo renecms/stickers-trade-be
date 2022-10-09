@@ -25,6 +25,8 @@ public class UserDto {
     private List<StickerDto> userStickerWishList;
 
     private List<StickerDto> userStickerOwnedList;
+    ;
 
     private List<TradePointDto> userTradePointList;
+    ;
 }
