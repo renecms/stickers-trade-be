@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -30,6 +31,9 @@ public class TradePoint {
 
     @Column(name = "creation_date")
     private LocalTime creationDate;
+
+    @ManyToMany(mappedBy = "userTradePointList")
+    private List<User> tradePointUserList;
 
     public TradePointDto toDto() {
         return TradePointDto.builder()

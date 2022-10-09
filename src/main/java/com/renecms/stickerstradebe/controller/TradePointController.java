@@ -1,6 +1,7 @@
 package com.renecms.stickerstradebe.controller;
 
 import com.renecms.stickerstradebe.dto.TradePointDto;
+import com.renecms.stickerstradebe.dto.UserDto;
 import com.renecms.stickerstradebe.service.TradePointService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +33,10 @@ public class TradePointController {
     public TradePointDto update(@PathVariable Integer id, @Valid @RequestBody TradePointDto tradePointDto) {
         tradePointDto.setId(id);
         return service.updateTradePoint(tradePointDto);
+    }
+
+    @GetMapping("/trade_point/{id}/user")
+    public List<UserDto> getAllUsers(@PathVariable Integer id) {
+        return service.getUsersInTradePoint(id);
     }
 }

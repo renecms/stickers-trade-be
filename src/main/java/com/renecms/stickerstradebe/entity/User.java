@@ -71,6 +71,14 @@ public class User {
                 .build();
     }
 
+    public UserDto toSimplifiedDto() {
+        return UserDto.builder()
+                .id(id)
+                .name(name)
+                .email(email)
+                .build();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

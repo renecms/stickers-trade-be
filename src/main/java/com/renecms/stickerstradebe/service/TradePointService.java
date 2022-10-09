@@ -1,7 +1,10 @@
 package com.renecms.stickerstradebe.service;
 
+import com.google.common.collect.ImmutableList;
 import com.renecms.stickerstradebe.dto.TradePointDto;
+import com.renecms.stickerstradebe.dto.UserDto;
 import com.renecms.stickerstradebe.entity.TradePoint;
+import com.renecms.stickerstradebe.entity.User;
 import com.renecms.stickerstradebe.repository.TradePointRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,5 +49,14 @@ public class TradePointService {
 
     public List<TradePointDto> getAllTradePoints() {
         return tradePointRepository.findAll().stream().map(TradePoint::toDto).collect(Collectors.toList());
+    }
+
+    public List<UserDto> getUsersInTradePoint(Integer id) {
+        return tradePointRepository.findById(id)
+                .map(tradePoint -> tradePoint.getTradePointUserList()
+                        .stream()
+                        .map(User::toSimplifiedDto)
+                        .collect(Collectors.toList()))
+                .orElse(ImmutableList.of());
     }
 }
