@@ -28,7 +28,7 @@ public class UserController {
         return service.createUser(userDto);
     }
 
-    @PostMapping("/user/{id}")
+    @PutMapping("/user/{id}")
     public UserDto update(@PathVariable Integer id, @Valid @RequestBody UserDto userDto) {
         userDto.setId(id);
         return service.updateUser(userDto);

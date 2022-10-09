@@ -1,5 +1,7 @@
 package com.renecms.stickerstradebe.service;
 
+import com.renecms.stickerstradebe.dto.StickerDto;
+import com.renecms.stickerstradebe.dto.TradePointDto;
 import com.renecms.stickerstradebe.dto.UserDto;
 import com.renecms.stickerstradebe.entity.User;
 import com.renecms.stickerstradebe.repository.UserRepository;
@@ -29,6 +31,21 @@ public class UserService {
             userToBeUpdated = user.get();
             userToBeUpdated.setEmail(userDto.getEmail());
             userToBeUpdated.setName(userDto.getName());
+            userToBeUpdated.setUserStickerWishList(userDto
+                    .getUserStickerOwnedList()
+                    .stream()
+                    .map(StickerDto::toEntity)
+                    .collect(Collectors.toList()));
+            userToBeUpdated.setUserStickerOwnedList(userDto
+                    .getUserStickerWishList()
+                    .stream()
+                    .map(StickerDto::toEntity)
+                    .collect(Collectors.toList()));
+            userToBeUpdated.setUserTradePointList(userDto
+                    .getUserTradePointList()
+                    .stream()
+                    .map(TradePointDto::toEntity)
+                    .collect(Collectors.toList()));
 
             return userRepository.save(userToBeUpdated).toDto();
         } else {
@@ -40,6 +57,21 @@ public class UserService {
         User user = User.builder()
                 .name(userDto.getName())
                 .email(userDto.getEmail())
+                .userStickerOwnedList(userDto
+                        .getUserStickerOwnedList()
+                        .stream()
+                        .map(StickerDto::toEntity)
+                        .collect(Collectors.toList()))
+                .userStickerWishList(userDto
+                        .getUserStickerWishList()
+                        .stream()
+                        .map(StickerDto::toEntity)
+                        .collect(Collectors.toList()))
+                .userTradePointList(userDto
+                        .getUserTradePointList()
+                        .stream()
+                        .map(TradePointDto::toEntity)
+                        .collect(Collectors.toList()))
                 .build();
         return userRepository.save(user).toDto();
     }

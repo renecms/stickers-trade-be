@@ -51,11 +51,20 @@ public class TradePointService {
         return tradePointRepository.findAll().stream().map(TradePoint::toDto).collect(Collectors.toList());
     }
 
-    public List<UserDto> getUsersInTradePoint(Integer id) {
+    public List<UserDto> getSimplifiedUsersInTradePoint(Integer id) {
         return tradePointRepository.findById(id)
                 .map(tradePoint -> tradePoint.getTradePointUserList()
                         .stream()
                         .map(User::toSimplifiedDto)
+                        .collect(Collectors.toList()))
+                .orElse(ImmutableList.of());
+    }
+
+    public List<UserDto> getUsersInTradePoint(Integer id) {
+        return tradePointRepository.findById(id)
+                .map(tradePoint -> tradePoint.getTradePointUserList()
+                        .stream()
+                        .map(User::toDto)
                         .collect(Collectors.toList()))
                 .orElse(ImmutableList.of());
     }

@@ -36,7 +36,7 @@ public class TradePointController {
     }
 
     @GetMapping("/trade_point/{id}/user")
-    public List<UserDto> getAllUsers(@PathVariable Integer id) {
-        return service.getUsersInTradePoint(id);
+    public List<UserDto> getAllUsersInTradePoint(@PathVariable Integer id) {
+        return service.getSimplifiedUsersInTradePoint(id);
     }
 }

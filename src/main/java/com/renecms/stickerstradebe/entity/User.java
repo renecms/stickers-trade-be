@@ -33,7 +33,7 @@ public class User {
     @Column(name = "creation_date")
     private LocalTime creationDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_sticker_wishlist", schema = "stickers",
             joinColumns = @JoinColumn(table = "user", name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(table = "sticker", name = "sticker_id", referencedColumnName = "id"))
