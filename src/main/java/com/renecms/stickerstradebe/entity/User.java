@@ -1,5 +1,6 @@
 package com.renecms.stickerstradebe.entity;
 
+import com.renecms.stickerstradebe.dto.UserDto;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,5 +23,13 @@ public class User {
 
     @Column(name = "creation_date")
     private LocalTime creationDate;
+
+    public UserDto toDto() {
+        return UserDto.builder()
+                .id(id)
+                .name(name)
+                .email(email)
+                .build();
+    }
 
 }

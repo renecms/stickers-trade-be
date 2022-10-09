@@ -5,10 +5,8 @@ import lombok.Data;
 
 @Data
 @Builder
-public class StickerDto {
+public class TradePointDto {
     private Integer id;
     private String name;
-    private Integer number;
-    private String imageUrl;
-    private String country;
+    private String address;
 }

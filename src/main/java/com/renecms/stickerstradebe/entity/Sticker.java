@@ -28,6 +28,7 @@ public class Sticker {
 
     public StickerDto toDto() {
         return StickerDto.builder()
+                .id(id)
                 .name(name)
                 .number(number)
                 .imageUrl(imageUrl)

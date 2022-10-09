@@ -1,5 +1,6 @@
 package com.renecms.stickerstradebe.entity;
 
+import com.renecms.stickerstradebe.dto.TradePointDto;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,4 +24,11 @@ public class TradePoint {
     @Column(name = "creation_date")
     private LocalTime creationDate;
 
+    public TradePointDto toDto() {
+        return TradePointDto.builder()
+                .id(id)
+                .name(name)
+                .address(address)
+                .build();
+    }
 }
