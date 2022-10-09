@@ -1,6 +1,6 @@
 package com.renecms.stickerstradebe.service;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.renecms.stickerstradebe.dto.StickerDto;
 import com.renecms.stickerstradebe.dto.TradePointDto;
 import com.renecms.stickerstradebe.dto.UserDto;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,19 +28,19 @@ public class UserService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
-    private static List<TradePoint> convertTradePointDtoListToEntityList(UserDto userDto) {
+    private static Set<TradePoint> convertTradePointDtoListToEntityList(UserDto userDto) {
         return userDto
                 .getUserTradePointList()
                 .stream()
                 .map(TradePointDto::toEntity)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
-    private static List<Sticker> convertStickerDtoListToEntityList(List<StickerDto> stickerDtoList) {
+    private static Set<Sticker> convertStickerDtoListToEntityList(Set<StickerDto> stickerDtoList) {
         return stickerDtoList
                 .stream()
                 .map(StickerDto::toEntity)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     public UserDto updateUser(UserDto userDto) {
@@ -50,11 +51,11 @@ public class UserService {
             userToBeUpdated.setEmail(userDto.getEmail());
             userToBeUpdated.setName(userDto.getName());
             userToBeUpdated.setUserStickerWishList(userDto.getUserStickerOwnedList() != null ?
-                    convertStickerDtoListToEntityList(userDto.getUserStickerOwnedList()) : ImmutableList.of());
+                    convertStickerDtoListToEntityList(userDto.getUserStickerOwnedList()) : ImmutableSet.of());
             userToBeUpdated.setUserStickerOwnedList(userDto.getUserStickerWishList() != null ?
-                    convertStickerDtoListToEntityList(userDto.getUserStickerWishList()) : ImmutableList.of());
+                    convertStickerDtoListToEntityList(userDto.getUserStickerWishList()) : ImmutableSet.of());
             userToBeUpdated.setUserTradePointList(userDto.getUserTradePointList() != null ?
-                    convertTradePointDtoListToEntityList(userDto) : ImmutableList.of());
+                    convertTradePointDtoListToEntityList(userDto) : ImmutableSet.of());
 
             return userRepository.save(userToBeUpdated).toDto();
         } else {
@@ -68,12 +69,12 @@ public class UserService {
                 .email(userDto.getEmail())
                 .userStickerOwnedList(userDto.getUserStickerOwnedList() != null ?
                         convertStickerDtoListToEntityList(userDto
-                                .getUserStickerOwnedList()) : ImmutableList.of())
+                                .getUserStickerOwnedList()) : ImmutableSet.of())
                 .userStickerWishList(userDto.getUserStickerWishList() != null ?
                         convertStickerDtoListToEntityList(userDto
-                                .getUserStickerWishList()) : ImmutableList.of())
+                                .getUserStickerWishList()) : ImmutableSet.of())
                 .userTradePointList(userDto.getUserTradePointList() != null ?
-                        convertTradePointDtoListToEntityList(userDto) : ImmutableList.of())
+                        convertTradePointDtoListToEntityList(userDto) : ImmutableSet.of())
                 .build();
         return userRepository.save(user).toDto();
     }

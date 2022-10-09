@@ -6,9 +6,8 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -38,19 +37,19 @@ public class User {
     @JoinTable(name = "user_sticker_wishlist", schema = "stickers",
             joinColumns = @JoinColumn(table = "user", name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(table = "sticker", name = "sticker_id", referencedColumnName = "id"))
-    private List<Sticker> userStickerWishList = new ArrayList<>();
+    private Set<Sticker> userStickerWishList;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_sticker_owned", schema = "stickers",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "sticker_id", referencedColumnName = "id"))
-    private List<Sticker> userStickerOwnedList = new ArrayList<>();
+    private Set<Sticker> userStickerOwnedList;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_trade_point", schema = "stickers",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "trade_point_id", referencedColumnName = "id"))
-    private List<TradePoint> userTradePointList = new ArrayList<>();
+    private Set<TradePoint> userTradePointList;
 
     public UserDto toDto() {
         return UserDto.builder()
@@ -60,15 +59,15 @@ public class User {
                 .userStickerWishList(userStickerWishList
                         .stream()
                         .map(Sticker::toDto)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toSet()))
                 .userStickerOwnedList(userStickerOwnedList
                         .stream()
                         .map(Sticker::toDto)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toSet()))
                 .userTradePointList(userTradePointList
                         .stream()
                         .map(TradePoint::toDto)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toSet()))
                 .build();
     }
 

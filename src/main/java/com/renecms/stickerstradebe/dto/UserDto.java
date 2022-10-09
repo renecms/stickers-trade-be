@@ -7,7 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -22,11 +22,9 @@ public class UserDto {
     @NotNull
     private String email;
 
-    private List<StickerDto> userStickerWishList;
+    private Set<StickerDto> userStickerWishList;
 
-    private List<StickerDto> userStickerOwnedList;
-    ;
+    private Set<StickerDto> userStickerOwnedList;
 
-    private List<TradePointDto> userTradePointList;
-    ;
+    private Set<TradePointDto> userTradePointList;
 }
