@@ -22,6 +22,14 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler(value
+            = {IllegalArgumentException.class, IllegalArgumentException.class})
+    protected ResponseEntity<Object> handleBadRequest(
+            RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, null,
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value
             = {DataIntegrityViolationException.class, DataIntegrityViolationException.class})
     protected ResponseEntity<Object> handleConflict(
             RuntimeException ex, WebRequest request) {
