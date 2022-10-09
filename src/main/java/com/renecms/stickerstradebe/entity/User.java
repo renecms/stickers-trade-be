@@ -33,23 +33,49 @@ public class User {
     @Column(name = "creation_date")
     private LocalTime creationDate;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "user_sticker_wishlist", schema = "stickers",
             joinColumns = @JoinColumn(table = "user", name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(table = "sticker", name = "sticker_id", referencedColumnName = "id"))
     private Set<Sticker> userStickerWishList;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "user_sticker_owned", schema = "stickers",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "sticker_id", referencedColumnName = "id"))
     private Set<Sticker> userStickerOwnedList;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "user_trade_point", schema = "stickers",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "trade_point_id", referencedColumnName = "id"))
     private Set<TradePoint> userTradePointList;
+
+    public void addWantedSticker(Sticker sticker) {
+        userStickerWishList.add(sticker);
+    }
+
+    public void removeWantedSticker(Sticker sticker) {
+        userStickerWishList.remove(sticker);
+    }
+
+    public void addOwnedSticker(Sticker sticker) {
+        userStickerOwnedList.add(sticker);
+    }
+
+    public void removeOwnedSticker(Sticker sticker) {
+        userStickerOwnedList.remove(sticker);
+    }
+
+    public void addTradePoint(TradePoint tradePoint) {
+        userTradePointList.add(tradePoint);
+        tradePoint.getTradePointUserList().add(this);
+    }
+
+    public void removeTradePoint(TradePoint tradePoint) {
+        userTradePointList.remove(tradePoint);
+        tradePoint.getTradePointUserList().remove(this);
+    }
 
     public UserDto toDto() {
         return UserDto.builder()

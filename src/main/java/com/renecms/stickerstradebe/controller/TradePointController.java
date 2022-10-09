@@ -16,7 +16,7 @@ public class TradePointController {
 
     @GetMapping("/trade_point/{id}")
     public TradePointDto get(@PathVariable Integer id) {
-        return service.getTradePoints(id);
+        return service.getTradePoint(id);
     }
 
     @GetMapping("/trade_point")

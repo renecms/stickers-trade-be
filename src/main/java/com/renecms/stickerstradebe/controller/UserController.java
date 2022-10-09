@@ -33,4 +33,34 @@ public class UserController {
         userDto.setId(id);
         return service.updateUser(userDto);
     }
+
+    @PostMapping("/user/{userId}/trade_point/{tradePointId}")
+    public void linkUserToTradePoint(@PathVariable Integer tradePointId, @PathVariable Integer userId) {
+        service.addTradePointToUser(userId, tradePointId);
+    }
+
+    @DeleteMapping("/user/{userId}/trade_point/{tradePointId}")
+    public void removeLinkUserToTradePoint(@PathVariable Integer tradePointId, @PathVariable Integer userId) {
+        service.removeTradePointToUser(userId, tradePointId);
+    }
+
+    @PostMapping("/user/{userId}/owned_sticker/{stickerId}")
+    public void addStickerToUserOwnedList(@PathVariable Integer stickerId, @PathVariable Integer userId) {
+        service.addStickerToUserOwnedList(userId, stickerId);
+    }
+
+    @DeleteMapping("/user/{userId}/owned_sticker/{stickerId}")
+    public void removeStickerFromUserOwnedList(@PathVariable Integer stickerId, @PathVariable Integer userId) {
+        service.removeStickerFromUserOwnedList(userId, stickerId);
+    }
+
+    @PostMapping("/user/{userId}/sticker_wishlist/{stickerId}")
+    public void addStickerToUserWishList(@PathVariable Integer stickerId, @PathVariable Integer userId) {
+        service.addStickerToUserWishlist(userId, stickerId);
+    }
+
+    @DeleteMapping("/user/{userId}/sticker_wishlist/{stickerId}")
+    public void removeStickerFromUserWishList(@PathVariable Integer stickerId, @PathVariable Integer userId) {
+        service.removeStickerFromUserWishlist(userId, stickerId);
+    }
 }

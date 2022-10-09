@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class TradePointService {
     public TradePointRepository tradePointRepository;
 
-    public TradePointDto getTradePoints(Integer id) {
+    public TradePointDto getTradePoint(Integer id) {
         return tradePointRepository.findById(id)
                 .map(TradePoint::toDto)
                 .orElseThrow(EntityNotFoundException::new);
