@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -31,11 +32,25 @@ public class User {
     @Column(name = "creation_date")
     private LocalTime creationDate;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_sticker_wishlist", schema = "stickers",
+            joinColumns = @JoinColumn(table = "user", name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(table = "sticker", name = "sticker_id", referencedColumnName = "id"))
+    private List<Sticker> userStickerWishlist;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_sticker_owned", schema = "stickers",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "sticker_id", referencedColumnName = "id"))
+    private List<Sticker> userStickerOwned;
+
     public UserDto toDto() {
         return UserDto.builder()
                 .id(id)
                 .name(name)
                 .email(email)
+                .userStickerWishlist(userStickerWishlist)
+                .userStickerOwned(userStickerOwned)
                 .build();
     }
 
