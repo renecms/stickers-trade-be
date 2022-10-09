@@ -13,6 +13,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "trade_point", schema = "stickers")
 public class TradePoint {

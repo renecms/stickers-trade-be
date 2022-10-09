@@ -13,6 +13,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "\"user\"", schema = "stickers")
 public class User {
