@@ -1,12 +1,20 @@
 package com.renecms.stickerstradebe.entity;
 
 import com.renecms.stickerstradebe.dto.TradePointDto;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "trade_point", schema = "stickers")
 public class TradePoint {
@@ -30,5 +38,18 @@ public class TradePoint {
                 .name(name)
                 .address(address)
                 .build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        TradePoint that = (TradePoint) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
