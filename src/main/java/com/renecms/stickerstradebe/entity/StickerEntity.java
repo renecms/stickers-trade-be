@@ -1,9 +1,9 @@
 package com.renecms.stickerstradebe.entity;
 
+import com.renecms.stickerstradebe.dto.StickerDto;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Data
 @Entity
@@ -25,4 +25,13 @@ public class StickerEntity {
 
     @Column(name = "country")
     private String country;
+
+    public StickerDto toDto() {
+        return StickerDto.builder()
+                .name(name)
+                .number(number)
+                .imageUrl(imageUrl)
+                .country(country)
+                .build();
+    }
 }

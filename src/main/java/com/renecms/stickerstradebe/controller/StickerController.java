@@ -1,6 +1,6 @@
 package com.renecms.stickerstradebe.controller;
 
-import com.renecms.stickerstradebe.entity.StickerEntity;
+import com.renecms.stickerstradebe.dto.StickerDto;
 import com.renecms.stickerstradebe.service.StickerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ public class StickerController {
     public StickerService service;
 
     @GetMapping("/sticker")
-    public List<StickerEntity> getAll(){
+    public List<StickerDto> getAll() {
         return service.getAllStickers();
     }
 }
