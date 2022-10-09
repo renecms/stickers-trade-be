@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -36,21 +37,37 @@ public class User {
     @JoinTable(name = "user_sticker_wishlist", schema = "stickers",
             joinColumns = @JoinColumn(table = "user", name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(table = "sticker", name = "sticker_id", referencedColumnName = "id"))
-    private List<Sticker> userStickerWishlist;
+    private List<Sticker> userStickerWishList;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_sticker_owned", schema = "stickers",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "sticker_id", referencedColumnName = "id"))
-    private List<Sticker> userStickerOwned;
+    private List<Sticker> userStickerOwnedList;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_trade_point", schema = "stickers",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "trade_point_id", referencedColumnName = "id"))
+    private List<TradePoint> userTradePointList;
 
     public UserDto toDto() {
         return UserDto.builder()
                 .id(id)
                 .name(name)
                 .email(email)
-                .userStickerWishlist(userStickerWishlist)
-                .userStickerOwned(userStickerOwned)
+                .userStickerWishList(userStickerWishList
+                        .stream()
+                        .map(Sticker::toDto)
+                        .collect(Collectors.toList()))
+                .userStickerOwnedList(userStickerOwnedList
+                        .stream()
+                        .map(Sticker::toDto)
+                        .collect(Collectors.toList()))
+                .userTradePointList(userTradePointList
+                        .stream()
+                        .map(TradePoint::toDto)
+                        .collect(Collectors.toList()))
                 .build();
     }
 

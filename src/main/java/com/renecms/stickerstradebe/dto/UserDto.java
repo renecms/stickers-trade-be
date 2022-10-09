@@ -1,6 +1,5 @@
 package com.renecms.stickerstradebe.dto;
 
-import com.renecms.stickerstradebe.entity.Sticker;
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,7 +19,9 @@ public class UserDto {
     @NotNull
     private String email;
 
-    private List<Sticker> userStickerWishlist;
+    private List<StickerDto> userStickerWishList;
 
-    private List<Sticker> userStickerOwned;
+    private List<StickerDto> userStickerOwnedList;
+
+    private List<TradePointDto> userTradePointList;
 }
