@@ -5,6 +5,7 @@ import com.renecms.stickerstradebe.service.StickerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,12 +24,12 @@ public class StickerController {
     }
 
     @PostMapping("/sticker")
-    public StickerDto save(@RequestBody StickerDto stickerDto) {
+    public StickerDto save(@Valid @RequestBody StickerDto stickerDto) {
         return service.createSticker(stickerDto);
     }
 
     @PostMapping("/sticker/{id}")
-    public StickerDto update(@PathVariable Integer id, @RequestBody StickerDto stickerDto) {
+    public StickerDto update(@PathVariable Integer id, @Valid @RequestBody StickerDto stickerDto) {
         stickerDto.setId(id);
         return service.updateSticker(stickerDto);
     }
