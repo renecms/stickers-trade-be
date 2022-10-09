@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "sticker", schema = "stickers", catalog = "postgres")
-public class StickerEntity {
+public class Sticker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
