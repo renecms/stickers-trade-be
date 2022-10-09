@@ -1,6 +1,7 @@
 package com.renecms.stickerstradebe.controller;
 
 import com.renecms.stickerstradebe.dto.UserDto;
+import com.renecms.stickerstradebe.entity.Trade;
 import com.renecms.stickerstradebe.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -62,5 +63,10 @@ public class UserController {
     @DeleteMapping("/user/{userId}/sticker_wishlist/{stickerId}")
     public void removeStickerFromUserWishList(@PathVariable Integer stickerId, @PathVariable Integer userId) {
         service.removeStickerFromUserWishlist(userId, stickerId);
+    }
+
+    @GetMapping("/user/{userId}/trades")
+    public List<Trade> getUserTrades(@PathVariable Integer userId) {
+        return service.getAllUsersTrades(userId);
     }
 }

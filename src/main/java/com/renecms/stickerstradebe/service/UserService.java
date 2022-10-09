@@ -3,6 +3,7 @@ package com.renecms.stickerstradebe.service;
 import com.google.common.collect.ImmutableSet;
 import com.renecms.stickerstradebe.dto.UserDto;
 import com.renecms.stickerstradebe.entity.Sticker;
+import com.renecms.stickerstradebe.entity.Trade;
 import com.renecms.stickerstradebe.entity.TradePoint;
 import com.renecms.stickerstradebe.entity.User;
 import com.renecms.stickerstradebe.repository.StickerRepository;
@@ -130,5 +131,9 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public List<Trade> getAllUsersTrades(Integer userId) {
+        return userRepository.getAllTradesByUserId(userId);
     }
 }
