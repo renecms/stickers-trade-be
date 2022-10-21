@@ -1,13 +1,16 @@
 package com.renecms.stickerstradebe.controller;
 
 import com.renecms.stickerstradebe.dto.UserDto;
-import com.renecms.stickerstradebe.entity.Trade;
+import com.renecms.stickerstradebe.dto.UserTradeDto;
 import com.renecms.stickerstradebe.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @RestController
 @AllArgsConstructor
@@ -65,8 +68,19 @@ public class UserController {
         service.removeStickerFromUserWishlist(userId, stickerId);
     }
 
-    @GetMapping("/user/{userId}/trades")
-    public List<Trade> getUserTrades(@PathVariable Integer userId) {
-        return service.getAllUsersTrades(userId);
+    @GetMapping("/user/{userId}/trades/{tradePoint}")
+    public List<UserTradeDto> getUserTrades(@PathVariable Integer userId, @PathVariable Integer tradePoint) {
+        return service.getAllUsersTrades(userId, tradePoint)
+                .stream()
+                .collect(groupingBy(trade -> trade.getOwnerId()))
+                .entrySet()
+                .stream()
+                .map(entry -> UserTradeDto
+                        .builder()
+                        .ownerId(entry.getKey())
+                        .trades(entry.getValue())
+                        .build())
+                .sorted((first, second) -> Integer.compare(second.getTrades().size(), first.getTrades().size()))
+                .collect(Collectors.toList());
     }
 }

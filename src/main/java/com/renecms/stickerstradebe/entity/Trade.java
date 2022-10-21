@@ -4,7 +4,15 @@ package com.renecms.stickerstradebe.entity;
 public interface Trade {
     Integer getStickerId();
 
-    String getOwnerIds();
+    String getStickerName();
 
-    Integer getTradePointId();
+    Integer getStickerNumber();
+
+    String getStickerUrl();
+
+    String getStickerCountry();
+
+    String getOwnerId();
+
+    String getOwnerName();
 }

@@ -133,7 +133,7 @@ public class UserService {
         return false;
     }
 
-    public List<Trade> getAllUsersTrades(Integer userId) {
-        return userRepository.getAllTradesByUserId(userId);
+    public List<Trade> getAllUsersTrades(Integer userId, Integer tradePoint) {
+        return userRepository.getAllTradesByUserIdAndTradePointId(userId, tradePoint);
     }
 }
