@@ -14,5 +14,6 @@ import java.util.List;
 @Builder
 public class UserTradeDto {
     private String ownerId;
+    private String ownerName;
     private List<Trade> trades;
 }

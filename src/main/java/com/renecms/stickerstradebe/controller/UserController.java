@@ -72,14 +72,17 @@ public class UserController {
     public List<UserTradeDto> getUserTrades(@PathVariable Integer userId, @PathVariable Integer tradePoint) {
         return service.getAllUsersTrades(userId, tradePoint)
                 .stream()
-                .collect(groupingBy(trade -> trade.getOwnerId()))
+                .collect(groupingBy(trade -> UserTradeDto
+                        .builder()
+                        .ownerId(trade.getOwnerId())
+                        .ownerName(trade.getOwnerName())
+                        .build()))
                 .entrySet()
                 .stream()
-                .map(entry -> UserTradeDto
-                        .builder()
-                        .ownerId(entry.getKey())
-                        .trades(entry.getValue())
-                        .build())
+                .map(entry -> {
+                    entry.getKey().setTrades(entry.getValue());
+                    return entry.getKey();
+                })
                 .sorted((first, second) -> Integer.compare(second.getTrades().size(), first.getTrades().size()))
                 .collect(Collectors.toList());
     }
